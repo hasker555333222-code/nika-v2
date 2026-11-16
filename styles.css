@@ -623,3 +623,6 @@ ul{margin:0;padding:0;list-style:none}
 /* view switch */
 .view{display:none}
 .view.is-active{display:block}
+
+/* бургер на тёмной шапке */
+.header.on-dark .header__burger{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22);color:#f4ece3}
