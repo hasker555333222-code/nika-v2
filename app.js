@@ -8,7 +8,7 @@
 // Базовый путь к медиа. Для продакшена положите папку media рядом с index.html и замените на 'media'.
 const MEDIA = 'https://selena28lena.github.io/nika/media';
 
-const TYPES = { straight:'Прямой', corner:'Угловой', u:'П-образный', kitchen:'Кухонный уголок' };
+const TYPES = { straight:'Прямой', corner:'Угловой', u:'П-образный' };
 
 const PRODUCTS = [
   { id:'nika-grand', name:'Модель 01', type:'u', tag:'Визуализация', isNew:true, dir:'nika-grand-concept', ext:'jpg', photos:[3,13,1,2,9,10,11,12,4,5,6,7,8],
@@ -16,8 +16,8 @@ const PRODUCTS = [
     specs:[['Размеры','По вашим размерам'],['Форма','П-образная, модульная'],['Хранение','Ящики в оттоманках'],['Ткань','На выбор, есть «антикоготь»']], recolor:true },
   { id:'model-02', name:'Модель 02', type:'corner', isNew:true },
   { id:'model-03', name:'Модель 03', type:'straight' },
-  { id:'model-04', name:'Модель 04', type:'corner', isNew:true },
-  { id:'model-05', name:'Модель 05', type:'corner' },
+  { id:'model-04', name:'Модель 04', type:'u', isNew:true },
+  { id:'model-05', name:'Модель 05', type:'straight' },
   { id:'model-06', name:'Модель 06', type:'corner' },
   { id:'model-07', name:'Модель 07', type:'straight' },
   { id:'model-08', name:'Модель 08', type:'corner' },
@@ -34,19 +34,17 @@ const PRODUCTS = [
   { id:'model-19', name:'Модель 19', type:'straight' },
   { id:'model-20', name:'Модель 20', type:'straight' },
   { id:'model-21', name:'Модель 21', type:'straight' },
-  { id:'model-22', name:'Модель 22', type:'kitchen' },
-  { id:'model-23', name:'Модель 23', type:'kitchen' },
 ];
 PRODUCTS.forEach(p => {
   p.dir = p.dir || p.id; p.ext = p.ext || 'webp'; p.photos = p.photos || [1];
   p.typeName = TYPES[p.type];
   p.img = (n, size) => `${MEDIA}/products/${p.dir}/${n}${size ? '-' + size : ''}.${p.ext}`;
   p.cover = p.img(p.photos[0], 'm');
-  if (!p.desc) p.desc = p.type === 'kitchen'
-    ? 'Кухонный уголок по размерам вашей кухни: угол слева или справа, ящики под сиденьями, практичная моющаяся ткань. Соберём так, чтобы вошёл в нишу до сантиметра.'
-    : `${p.typeName} диван, который мы шьём по вашим размерам: ширину, глубину сиденья и высоту подлокотников подбираем под комнату. Механизм, наполнение и ткань — на выбор, в том числе «антикоготь».`;
-  if (!p.specs) p.specs = p.type === 'kitchen'
-    ? [['Размеры','По размерам кухни'],['Угол','Левый или правый'],['Хранение','Ящики под сиденьями'],['Ткань','Практичная, моющаяся']]
+  if (!p.desc) p.desc = `${p.typeName} диван, который мы шьём по вашим размерам: ширину, глубину сиденья и высоту подлокотников подбираем под комнату. Механизм, наполнение и ткань — на выбор, в том числе «антикоготь».`;
+  if (!p.specs) p.specs = p.type === 'corner'
+    ? [['Размеры','По вашим размерам'],['Угол','Левый или правый'],['Механизм','На выбор'],['Ткань','На выбор, есть «антикоготь»']]
+    : p.type === 'u'
+    ? [['Размеры','По вашей комнате'],['Форма','П-образная, модульная'],['Хранение','Ящики в оттоманках'],['Ткань','На выбор, есть «антикоготь»']]
     : [['Размеры','По вашим размерам'],['Механизм','На выбор'],['Спальное место','Ровное, без стыка'],['Ткань','На выбор, есть «антикоготь»']];
 });
 const byId = id => PRODUCTS.find(p => p.id === id);
@@ -71,7 +69,7 @@ const REVIEWS = [
 
 const FAQ = [
   ['Сколько стоит диван?', 'Цена зависит от размеров, ткани, механизма и наполнения. Ориентир можно получить в калькуляторе на этой странице, а точную сумму назовём после того, как согласуем размеры и ткань — обычно в день обращения.'],
-  ['Какой срок изготовления?', 'Обычно около недели с момента, когда согласовали размеры и ткань. Срок называем до оформления заказа и фиксируем его.'],
+  ['Какой срок изготовления?', 'Обычно около 14 дней с момента, когда согласовали размеры и ткань. Срок называем до оформления заказа и фиксируем его.'],
   ['Можно ли повторить диван по фото?', 'Да. Пришлите фото понравившейся модели из любого источника — повторим форму в ваших размерах и в той ткани, которую вы выберете.'],
   ['Есть ли ткань «антикоготь»?', 'Есть. Это плотная ткань, за которую не цепляются когти, она легко чистится. Подойдёт, если дома кошка или собака. Также есть экокожа, велюр и рогожка — покажем образцы.'],
   ['Доставляете ли в другие города?', 'Доставляем по Екатеринбургу и Свердловской области, отправляем транспортными компаниями в другие регионы. Стоимость зависит от адреса — рассчитаем при заказе.'],
@@ -84,7 +82,6 @@ const CALC = {
     { id:'straight', name:'Прямой', base:36000, model:'model-03', svg:'<rect x="4" y="9" width="44" height="14" rx="3"/><path d="M4 23v4M48 23v4"/>' },
     { id:'corner', name:'Угловой', base:52000, model:'model-02', svg:'<path d="M4 9h44v8H18v10H4z"/>' },
     { id:'u', name:'П-образный', base:84000, model:'nika-grand', svg:'<path d="M4 4h12v18h20V4h12v24H4z"/>' },
-    { id:'kitchen', name:'Кухонный', base:22000, model:'model-23', svg:'<path d="M4 6h10v22H4zM14 18h34v10H14z"/>' },
   ],
   mech: [ ['none','Без механизма',0], ['book','Книжка',0], ['euro','Еврокнижка',4500], ['acc','Аккордеон',7500], ['puma','Пума',9500] ],
   fab: [ ['rogozhka','Рогожка',0], ['velour','Велюр',3500], ['anticlaw','Антикоготь',6500], ['ecoleather','Экокожа',8500] ],
@@ -148,7 +145,7 @@ document.addEventListener('click', e => {
 /* ---------- главная: превью каталога ---------- */
 let homeFilter = 'all';
 function renderHome() {
-  const chips = [['all','Все'], ...Object.entries(TYPES).map(([k, v]) => [k, v === 'Кухонный уголок' ? 'Кухонные' : v + 'е'])];
+  const chips = [['all','Все'], ...Object.entries(TYPES).map(([k, v]) => [k, v + 'е'])];
   $('#homeFilters').innerHTML = chips.map(([k, v]) => `<button class="chip ${homeFilter === k ? 'is-on' : ''}" data-hf="${k}">${v}</button>`).join('');
   const list = PRODUCTS.filter(p => homeFilter === 'all' || p.type === homeFilter).slice(0, 6);
   $('#homeGrid').innerHTML = list.map(cardHTML).join('');
@@ -158,19 +155,35 @@ renderHome();
 
 /* ---------- бегущая строка ---------- */
 (() => {
-  const items = ['Собственная фабрика с 2013 года', 'Диваны по вашим размерам', 'Ткань «антикоготь»', 'Срок около 7 дней', 'Доставка и сборка', 'Повторим диван по фото', 'Бесплатный расчёт'];
+  const items = ['Собственная фабрика с 2013 года', 'Диваны по вашим размерам', 'Ткань «антикоготь»', 'Срок около 14 дней', 'Доставка и сборка', 'Повторим диван по фото', 'Бесплатный расчёт'];
   $('#marquee').innerHTML = [...items, ...items].map(t => `<span class="marquee__item">${t}</span>`).join('');
 })();
 
-/* ---------- лента моделей ---------- */
+/* ---------- лента моделей (едет сама, можно тянуть) ---------- */
 (() => {
   const rail = $('#rail');
-  rail.innerHTML = PRODUCTS.map(p => `<a class="rail__shot" href="#/product/${p.id}" draggable="false"><img src="${p.img(p.photos[0], 'm')}" alt="${p.name}" loading="lazy" draggable="false"></a>`).join('');
+  const shots = PRODUCTS.map(p => `<a class="rail__shot" href="#/product/${p.id}" draggable="false"><img src="${p.img(p.photos[0], 'm')}" alt="${p.name}" loading="lazy" draggable="false"><span class="rail__name">${p.name}</span></a>`).join('');
+  rail.innerHTML = shots + shots;
   $('#railCount').textContent = `${PRODUCTS.length} ${plural(PRODUCTS.length, ['модель', 'модели', 'моделей'])}`;
-  let down = false, sx = 0, sl = 0, moved = false;
+  let down = false, sx = 0, sl = 0, moved = false, hover = false, pos = 0, last = performance.now();
+  const half = () => rail.scrollWidth / 2;
+  const tick = t => {
+    const dt = Math.min(64, t - last); last = t;
+    if (!down && !hover && currentView === 'home') {
+      pos += dt * 0.04;
+      if (pos >= half()) pos -= half();
+      rail.scrollLeft = pos;
+    } else pos = rail.scrollLeft;
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+  rail.addEventListener('mouseenter', () => hover = true);
+  rail.addEventListener('mouseleave', () => hover = false);
   rail.addEventListener('pointerdown', e => { down = true; moved = false; sx = e.clientX; sl = rail.scrollLeft; rail.classList.add('is-drag'); });
-  window.addEventListener('pointermove', e => { if (!down) return; const dx = e.clientX - sx; if (Math.abs(dx) > 4) moved = true; rail.scrollLeft = sl - dx; });
+  window.addEventListener('pointermove', e => { if (!down) return; const dx = e.clientX - sx; if (Math.abs(dx) > 4) moved = true; let v = sl - dx; if (v < 0) v += half(); if (v >= half()) v -= half(); rail.scrollLeft = v; });
   window.addEventListener('pointerup', () => { down = false; rail.classList.remove('is-drag'); });
+  rail.addEventListener('touchstart', () => { hover = true; }, { passive: true });
+  rail.addEventListener('touchend', () => { setTimeout(() => { hover = false; }, 1500); }, { passive: true });
   rail.addEventListener('click', e => { if (moved) e.preventDefault(); });
 })();
 
@@ -223,7 +236,7 @@ const calc = { kind:'corner', len:240, dep:95, mech:'euro', fab:'velour', opts:n
 function calcPrice() {
   const k = CALC.kinds.find(x => x.id === calc.kind);
   let price = k.base;
-  price += Math.max(0, calc.len - 200) / 10 * (calc.kind === 'kitchen' ? 900 : 1800);
+  price += Math.max(0, calc.len - 200) / 10 * 1800;
   price += Math.max(0, calc.dep - 90) / 5 * 1200;
   price += CALC.mech.find(x => x[0] === calc.mech)[2];
   price += CALC.fab.find(x => x[0] === calc.fab)[2] * (calc.kind === 'u' ? 1.6 : 1);
@@ -285,7 +298,7 @@ function countUp(el) {
 
 /* ---------- квиз ---------- */
 const QUIZ = [
-  { q:'Куда нужен диван?', opts:[['Гостиная','room:living'],['Спальня','room:bed'],['Кухня','room:kitchen'],['Детская / кабинет','room:small']] },
+  { q:'Куда нужен диван?', opts:[['Гостиная','room:living'],['Спальня','room:bed'],['Кухня-гостиная','room:living'],['Детская / кабинет','room:small']] },
   { q:'Какая форма подойдёт комнате?', opts:[['Прямой','type:straight'],['Угловой','type:corner'],['П-образный, большой','type:u'],['Не знаю — подскажите','type:any']] },
   { q:'Будете ли спать на диване?', opts:[['Каждый день','sleep:daily'],['Иногда, для гостей','sleep:guest'],['Нет','sleep:no']] },
   { q:'Есть ли дома животные?', opts:[['Кошка','pet:cat'],['Собака','pet:dog'],['Нет','pet:no']] },
@@ -295,16 +308,14 @@ function renderQuiz() {
   const box = $('#quizBox');
   if (quiz.step >= QUIZ.length) {
     const a = Object.fromEntries(quiz.ans.map(s => s.split(':')));
-    let type = a.type === 'any' ? (a.room === 'kitchen' ? 'kitchen' : a.room === 'living' ? 'corner' : 'straight') : a.type;
-    if (a.room === 'kitchen') type = 'kitchen';
+    let type = a.type === 'any' ? (a.room === 'living' ? 'corner' : 'straight') : a.type;
     const picks = PRODUCTS.filter(p => p.type === type).slice(0, 3);
     const tips = [];
     if (a.sleep === 'daily') tips.push('механизм для ежедневного сна и ортопедическое спальное место');
     if (a.pet === 'cat' || a.pet === 'dog') tips.push('ткань «антикоготь»');
-    if (a.room === 'kitchen') tips.push('моющаяся обивка и ящики под сиденьями');
     box.innerHTML = `<div class="quiz__res">
       <span class="eyebrow" style="color:#c38b5c">Ваш подбор</span>
-      <h3 class="quiz__q">${TYPES[type]} ${type === 'kitchen' ? '' : 'диван'}${tips.length ? ' — советуем ' + tips.join(' и ') : ''}</h3>
+      <h3 class="quiz__q">${TYPES[type]} диван${tips.length ? ' — советуем ' + tips.join(' и ') : ''}</h3>
       <div class="quiz__picks">${picks.map(p => `<a class="quiz__pick" href="#/product/${p.id}"><img src="${p.cover}" alt="${p.name}"><span>${p.name}</span></a>`).join('')}</div>
       <button class="btn btn--cognac btn--block" id="quizSend"><span>Получить расчёт по подбору</span><span class="btn__dot"><svg><use href="#i-arrow"/></svg></span></button>
       <button class="quiz__back" id="quizRestart">Пройти заново</button></div>`;
@@ -395,7 +406,7 @@ function openQuickView(id) {
 let catFilter = 'all', catSort = 'default';
 function renderCatalog() {
   const counts = Object.fromEntries(Object.keys(TYPES).map(k => [k, PRODUCTS.filter(p => p.type === k).length]));
-  const tabs = [['all', 'Все', PRODUCTS.length], ...Object.entries(TYPES).map(([k, v]) => [k, v === 'Кухонный уголок' ? 'Кухонные уголки' : v + 'е', counts[k]])];
+  const tabs = [['all', 'Все', PRODUCTS.length], ...Object.entries(TYPES).map(([k, v]) => [k, v + 'е', counts[k]])];
   $('#catTabs').innerHTML = tabs.map(([k, v, n]) => `<button class="tabs__btn ${catFilter === k ? 'is-on' : ''}" data-cf="${k}">${v}<b>${n}</b></button>`).join('');
   let list = PRODUCTS.filter(p => catFilter === 'all' || p.type === catFilter);
   if (catSort === 'fav') list = [...list].sort((a, b) => isFav(b.id) - isFav(a.id));
@@ -413,7 +424,7 @@ function renderProduct(id) {
   if (!p) { root.innerHTML = '<nav class="crumbs"><a href="#/">Главная</a><span>/</span><a href="#/catalog">Каталог</a></nav><h1 class="h2">Модель не найдена</h1><p class="lead" style="margin-top:16px">Возможно, ссылка устарела. <a class="link-arrow" href="#/catalog">Перейти в каталог</a></p>'; return; }
   const related = PRODUCTS.filter(x => x.id !== p.id && x.type === p.type).slice(0, 3);
   const rel = related.length >= 3 ? related : [...related, ...PRODUCTS.filter(x => x.id !== p.id && !related.includes(x))].slice(0, 3);
-  const hasCorner = p.type === 'corner' || p.type === 'u' || p.type === 'kitchen';
+  const hasCorner = p.type === 'corner' || p.type === 'u';
   const stageCls = p.recolor ? ' is-concept' : '';
   let cur = 0, side = 'left';
   root.innerHTML = `
@@ -429,7 +440,7 @@ function renderProduct(id) {
         </div>
       </div>
       <div class="pinfo">
-        <div class="pinfo__title"><span class="eyebrow">${p.typeName}${p.type !== 'kitchen' ? ' диван' : ''}</span><h1 class="h2">${p.name}</h1></div>
+        <div class="pinfo__title"><span class="eyebrow">${p.typeName} диван</span><h1 class="h2">${p.name}</h1></div>
         <div class="pinfo__price"><b>Цена по запросу</b><span>Точную цену назовём после выбора размера и ткани</span></div>
         <p class="pinfo__desc">${p.desc}</p>
         <div class="pinfo__opts">
@@ -443,7 +454,7 @@ function renderProduct(id) {
         </div>
         <div class="pinfo__specs">${p.specs.map(([a, b]) => `<div><span>${a}</span><span>${b}</span></div>`).join('')}</div>
         <div class="acc">
-          ${[['Изготовим под ваш размер', 'Меняем длину, глубину, высоту и ширину подлокотников. Пришлите замеры или фото комнаты — подскажем, как диван встанет.'], ['Ткань на выбор', 'Покажем образцы и поможем выбрать: «антикоготь», если дома кошка, экокожа для кухни-гостиной, велюр для спальни. На части моделей чехол съёмный — его можно стирать.'], ['Доставка и сборка', 'Привезём, занесём и соберём. Доставляем по Екатеринбургу и области, отправляем в другие регионы. Стоимость зависит от адреса.'], ['Срок изготовления', 'Обычно около недели с момента, когда согласовали размеры и ткань. Точный срок назовём при заказе.']].map(([q, a]) => `<div class="acc__item"><button class="acc__head" aria-expanded="false">${q}<span class="acc__icon"><svg><use href="#i-plus"/></svg></span></button><div class="acc__panel"><div class="acc__inner"><p>${a}</p></div></div></div>`).join('')}
+          ${[['Изготовим под ваш размер', 'Меняем длину, глубину, высоту и ширину подлокотников. Пришлите замеры или фото комнаты — подскажем, как диван встанет.'], ['Ткань на выбор', 'Покажем образцы и поможем выбрать: «антикоготь», если дома кошка, экокожа для кухни-гостиной, велюр для спальни. На части моделей чехол съёмный — его можно стирать.'], ['Доставка и сборка', 'Привезём, занесём и соберём. Доставляем по Екатеринбургу и области, отправляем в другие регионы. Стоимость зависит от адреса.'], ['Срок изготовления', 'Обычно около 14 дней с момента, когда согласовали размеры и ткань. Точный срок назовём при заказе.']].map(([q, a]) => `<div class="acc__item"><button class="acc__head" aria-expanded="false">${q}<span class="acc__icon"><svg><use href="#i-plus"/></svg></span></button><div class="acc__panel"><div class="acc__inner"><p>${a}</p></div></div></div>`).join('')}
         </div>
         <div class="pinfo__share"><span>Поделиться:</span><button class="chip" id="pShare">Скопировать ссылку</button></div>
       </div>
@@ -509,8 +520,6 @@ function onScroll() {
   const y = scrollY; const header = $('#header');
   header.classList.toggle('is-scrolled', y > 40);
   header.classList.toggle('is-hidden', y > lastY && y > 400 && !$('#mmenu').classList.contains('is-open'));
-  const hero = $('#hero'); const onDark = currentView === 'home' && y < hero.offsetHeight - 80;
-  header.classList.toggle('on-dark', onDark);
   if (currentView === 'home') { $('#heroMedia').style.transform = `translateY(${y * .25}px)`; anatomyScroll(); }
   const doc = document.documentElement; $('#scrollbar').style.transform = `scaleX(${y / (doc.scrollHeight - innerHeight || 1)})`;
   lastY = y;
@@ -529,9 +538,10 @@ window.addEventListener('pointermove', e => { const g = $('#glow'); g.style.left
   title.innerHTML = words.map((w, i) => `<span class="w" aria-hidden="true"><i style="transition-delay:${.05 * i}s">${w}${i < words.length - 1 ? '&nbsp;' : ''}</i></span>`).join('');
   const count = $('#plCount'), bar = $('#plBar'); let n = 0; const t0 = performance.now(), dur = 1700;
   lock(true);
-  const tick = t => { const p = Math.min(1, (t - t0) / dur); const e = 1 - Math.pow(1 - p, 2.2); n = Math.round(e * 100); count.textContent = n; bar.style.width = n + '%'; if (p < 1) requestAnimationFrame(tick); else finish(); };
-  const finish = () => { setTimeout(() => { $('#preloader').classList.add('is-done'); document.body.classList.add('is-ready'); lock(false); route(); setTimeout(() => $('#preloader').remove(), 1200); }, 250); };
-  requestAnimationFrame(tick);
+  let done = false;
+  const finish = () => { if (done) return; done = true; count.textContent = 100; bar.style.width = '100%'; setTimeout(() => { $('#preloader').classList.add('is-done'); document.body.classList.add('is-ready'); lock(false); route(); setTimeout(() => $('#preloader')?.remove(), 1200); }, 250); };
+  const iv = setInterval(() => { const p = Math.min(1, (performance.now() - t0) / dur); const e = 1 - Math.pow(1 - p, 2.2); n = Math.round(e * 100); count.textContent = n; bar.style.width = n + '%'; if (p >= 1) { clearInterval(iv); finish(); } }, 30);
+  setTimeout(finish, dur + 1500);
 })();
 
 })();
