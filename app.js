@@ -9,6 +9,7 @@
 const MEDIA = 'https://selena28lena.github.io/nika/media';
 
 const TYPES = { straight:'Прямой', corner:'Угловой', u:'П-образный' };
+const PLURAL = { straight:'Прямые', corner:'Угловые', u:'П-образные' };
 
 const PRODUCTS = [
   { id:'nika-grand', name:'Модель 01', type:'u', tag:'Визуализация', isNew:true, dir:'nika-grand-concept', ext:'jpg', photos:[3,13,1,2,9,10,11,12,4,5,6,7,8],
@@ -145,7 +146,7 @@ document.addEventListener('click', e => {
 /* ---------- главная: превью каталога ---------- */
 let homeFilter = 'all';
 function renderHome() {
-  const chips = [['all','Все'], ...Object.entries(TYPES).map(([k, v]) => [k, v + 'е'])];
+  const chips = [['all','Все'], ...Object.entries(TYPES).map(([k, v]) => [k, PLURAL[k]])];
   $('#homeFilters').innerHTML = chips.map(([k, v]) => `<button class="chip ${homeFilter === k ? 'is-on' : ''}" data-hf="${k}">${v}</button>`).join('');
   const list = PRODUCTS.filter(p => homeFilter === 'all' || p.type === homeFilter).slice(0, 6);
   $('#homeGrid').innerHTML = list.map(cardHTML).join('');
@@ -406,7 +407,7 @@ function openQuickView(id) {
 let catFilter = 'all', catSort = 'default';
 function renderCatalog() {
   const counts = Object.fromEntries(Object.keys(TYPES).map(k => [k, PRODUCTS.filter(p => p.type === k).length]));
-  const tabs = [['all', 'Все', PRODUCTS.length], ...Object.entries(TYPES).map(([k, v]) => [k, v + 'е', counts[k]])];
+  const tabs = [['all', 'Все', PRODUCTS.length], ...Object.entries(TYPES).map(([k, v]) => [k, PLURAL[k], counts[k]])];
   $('#catTabs').innerHTML = tabs.map(([k, v, n]) => `<button class="tabs__btn ${catFilter === k ? 'is-on' : ''}" data-cf="${k}">${v}<b>${n}</b></button>`).join('');
   let list = PRODUCTS.filter(p => catFilter === 'all' || p.type === catFilter);
   if (catSort === 'fav') list = [...list].sort((a, b) => isFav(b.id) - isFav(a.id));
