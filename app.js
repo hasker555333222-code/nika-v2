@@ -140,7 +140,7 @@ function cardHTML(p, i = 0) {
 }
 document.addEventListener('click', e => {
   const f = e.target.closest('[data-fav]'); if (f) { e.preventDefault(); toggleFav(f.dataset.fav); return; }
-  const q = e.target.closest('[data-qv]'); if (q) { e.preventDefault(); openQuickView(q.dataset.qv); }
+  const q = e.target.closest('[data-qv]'); if (q) { e.preventDefault(); const p = byId(q.dataset.qv); if (p) openLightbox(p.photos.map(n => p.img(n)), 0, p.name); }
 });
 
 /* ---------- главная: превью каталога ---------- */
@@ -390,6 +390,13 @@ function openModal(id) { const m = $('#modal-' + id); m.classList.add('is-open')
 function closeModals() { $$('.modal.is-open').forEach(m => { m.classList.remove('is-open'); m.setAttribute('aria-hidden', 'true'); }); if (!$('#drawer').classList.contains('is-open') && !$('#mmenu').classList.contains('is-open')) lock(false); }
 document.addEventListener('click', e => { if (e.target.closest('[data-close]')) closeModals(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModals(); openDrawer(false); } });
+/* ---------- лайтбокс: только фото, листается ---------- */
+let lbList = [], lbI = 0;
+function lbShow(i) { lbI = (i + lbList.length) % lbList.length; $('#lbImg').src = lbList[lbI]; const many = lbList.length > 1; $('#lbPrev').hidden = $('#lbNext').hidden = $('#lbCount').hidden = !many; $('#lbCount').textContent = `${lbI + 1} / ${lbList.length}`; }
+function openLightbox(list, i = 0, alt = '') { lbList = list; $('#lbImg').alt = alt; lbShow(i); openModal('lb'); }
+$('#lbPrev').addEventListener('click', () => lbShow(lbI - 1));
+$('#lbNext').addEventListener('click', () => lbShow(lbI + 1));
+document.addEventListener('keydown', e => { if (!$('#modal-lb').classList.contains('is-open') || lbList.length < 2) return; if (e.key === 'ArrowLeft') lbShow(lbI - 1); if (e.key === 'ArrowRight') lbShow(lbI + 1); });
 function openQuickView(id) {
   const p = byId(id); if (!p) return;
   $('#qvRoot').innerHTML = `<div class="qv__media"><img src="${p.img(p.photos[0])}" alt="${p.name}"></div>
@@ -419,7 +426,7 @@ $('#catTabs').addEventListener('click', e => { const b = e.target.closest('[data
 $('#catSort').addEventListener('change', e => { catSort = e.target.value; renderCatalog(); });
 
 /* ---------- страница товара ---------- */
-const CORNER_SVG = { left:'<path d="M3 4h12v14h16V9h0" /><path d="M3 4h28v14H3z" opacity=".35"/>', right:'<path d="M31 4H19v14H3V9" /><path d="M3 4h28v14H3z" opacity=".35"/>' };
+const CORNER_PATH = '<path d="M4 6h56v14H22v12H4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>';
 function renderProduct(id) {
   const p = byId(id); const root = $('#productRoot');
   if (!p) { root.innerHTML = '<nav class="crumbs"><a href="#/">Главная</a><span>/</span><a href="#/catalog">Каталог</a></nav><h1 class="h2">Модель не найдена</h1><p class="lead" style="margin-top:16px">Возможно, ссылка устарела. <a class="link-arrow" href="#/catalog">Перейти в каталог</a></p>'; return; }
@@ -445,7 +452,7 @@ function renderProduct(id) {
         <div class="pinfo__price"><b>Цена по запросу</b><span>Точную цену назовём после выбора размера и ткани</span></div>
         <p class="pinfo__desc">${p.desc}</p>
         <div class="pinfo__opts">
-          ${hasCorner ? `<div class="opt"><div class="opt__label"><i>1</i>Сторона угла</div><div class="opt__corner"><button class="opt__box is-on" data-side="left"><svg viewBox="0 0 34 22" stroke-linejoin="round">${CORNER_SVG.left}</svg>Слева</button><button class="opt__box" data-side="right"><svg viewBox="0 0 34 22" stroke-linejoin="round">${CORNER_SVG.right}</svg>Справа</button></div></div>` : ''}
+          ${hasCorner ? `<div class="opt"><div class="opt__label"><i>1</i>Сторона угла</div><div class="opt__corner"><button class="opt__box is-on" data-side="left"><svg viewBox="0 0 64 36" class="corner-ico">${CORNER_PATH}</svg>Слева</button><button class="opt__box" data-side="right"><svg viewBox="0 0 64 36" class="corner-ico" style="transform:scaleX(-1)">${CORNER_PATH}</svg>Справа</button></div></div>` : ''}
           <div class="opt"><div class="opt__label"><i>${hasCorner ? 2 : 1}</i>Ткань${p.recolor ? ' — примерьте на фото' : ''}</div><div class="opt__sw" id="gSwatches">${swatchesHTML()}</div><span class="opt__hint" id="gLabel">${p.recolor ? 'Беж · как на фото' : 'Выберите ткань — подберём образец в шоуруме'}</span></div>
         </div>
         <div class="pinfo__ctas">
@@ -466,7 +473,7 @@ function renderProduct(id) {
   const show = i => { cur = (i + p.photos.length) % p.photos.length; img.style.opacity = 0; setTimeout(() => { img.src = p.img(p.photos[cur]); img.style.opacity = 1; if (layer._fabric) applyFabric(layer, layer._fabric, img.src); }, 180); $$('#gThumbs .gallery__thumb').forEach((t, k) => t.classList.toggle('is-on', k === cur)); const c = $('#gCount'); if (c) c.textContent = `${cur + 1} / ${p.photos.length}`; };
   $('#gThumbs').addEventListener('click', e => { const t = e.target.closest('[data-i]'); if (t) show(+t.dataset.i); });
   const prev = $('#gPrev'), next = $('#gNext'); if (prev) { prev.addEventListener('click', () => show(cur - 1)); next.addEventListener('click', () => show(cur + 1)); }
-  $('#gZoom').addEventListener('click', () => { $('#lbImg').src = p.img(p.photos[cur]); openModal('lb'); });
+  $('#gZoom').addEventListener('click', () => openLightbox(p.photos.map(n => p.img(n)), cur, p.name));
   $$('[data-side]').forEach(b => b.addEventListener('click', () => { side = b.dataset.side; $$('[data-side]').forEach(x => x.classList.toggle('is-on', x === b)); $('#gRecolor').classList.toggle('is-flipped', side === 'right'); }));
   let fab = FABRICS[0];
   bindSwatches($('#gSwatches'), p.recolor ? layer : null, p.recolor ? $('#gLabel') : null, f => { fab = f; if (!p.recolor) $('#gLabel').textContent = `${f.name} · ${f.kind} — покажем образец в шоуруме`; });
