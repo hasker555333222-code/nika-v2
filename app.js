@@ -71,7 +71,7 @@ const REVIEWS = [
 const FAQ = [
   ['Сколько стоит диван?', 'Цена зависит от размеров, ткани, механизма и наполнения. Ориентир можно получить в калькуляторе на этой странице, а точную сумму назовём после того, как согласуем размеры и ткань — обычно в день обращения.'],
   ['Какой срок изготовления?', 'Обычно около 14 дней с момента, когда согласовали размеры и ткань. Срок называем до оформления заказа и фиксируем его.'],
-  ['Можно ли повторить диван по фото?', 'Да. Пришлите фото понравившейся модели из любого источника — повторим форму в ваших размерах и в той ткани, которую вы выберете.'],
+
   ['Есть ли ткань «антикоготь»?', 'Есть. Это плотная ткань, за которую не цепляются когти, она легко чистится. Подойдёт, если дома кошка или собака. Также есть экокожа, велюр и рогожка — покажем образцы.'],
   ['Доставляете ли в другие города?', 'Доставляем по Екатеринбургу и Свердловской области, отправляем транспортными компаниями в другие регионы. Стоимость зависит от адреса — рассчитаем при заказе.'],
   ['Как проходит сборка?', 'Привезём, занесём и соберём у вас дома. Перед производством проверим проходы: дверные проёмы, лестницы, лифт — чтобы диван точно прошёл.'],
@@ -156,7 +156,7 @@ renderHome();
 
 /* ---------- бегущая строка ---------- */
 (() => {
-  const items = ['Собственная фабрика с 2013 года', 'Диваны по вашим размерам', 'Ткань «антикоготь»', 'Срок около 14 дней', 'Доставка и сборка', 'Повторим диван по фото', 'Бесплатный расчёт'];
+  const items = ['Собственная фабрика с 2013 года', 'Диваны по вашим размерам', 'Ткань «антикоготь»', 'Срок около 14 дней', 'Доставка и сборка', 'Бесплатный расчёт'];
   $('#marquee').innerHTML = [...items, ...items].map(t => `<span class="marquee__item">${t}</span>`).join('');
 })();
 
@@ -370,9 +370,21 @@ function setupForm(form) {
     name.parentElement.classList.toggle('is-error', !name.value.trim()); if (!name.value.trim()) ok = false;
     const digits = phone.value.replace(/\D/g, ''); phone.parentElement.classList.toggle('is-error', digits.length !== 11); if (digits.length !== 11) ok = false;
     if (!ok) return;
-    // Здесь подключается отправка: Telegram-бот, почта или CRM. В макете — имитация.
-    const btn = $('button[type=submit]', form); btn.disabled = true; btn.querySelector('span').textContent = 'Отправляем…';
-    setTimeout(() => { form.classList.add('is-sent'); btn.disabled = false; btn.querySelector('span').textContent = 'Отправить'; }, 900);
+    // Отправка на почту фабрики через send.php на хостинге
+    const btn = $('button[type=submit]', form), label = btn.querySelector('span'), was = label.textContent;
+    btn.disabled = true; label.textContent = 'Отправляем…'; form.classList.remove('is-failed');
+    const fd = new FormData();
+    fd.append('name', name.value.trim()); fd.append('phone', phone.value.trim());
+    fd.append('msg', ($('textarea', form) || {}).value || '');
+    fd.append('kind', ($('[data-kinds] .chip.is-on', form) || {}).textContent || '');
+    fd.append('form', form.id === 'orderForm' ? 'Заявка на расчёт (главная)' : 'Рассчитать стоимость (окно)');
+    fd.append('page', location.href); fd.append('website', ($('input[name=website]', form) || {}).value || '');
+    [...file.files].slice(0, 5).forEach(f => fd.append('files[]', f, f.name));
+    fetch('send.php', { method: 'POST', body: fd })
+      .then(r => r.json().catch(() => ({ ok: false })))
+      .then(j => { if (!j.ok) throw new Error(j.error || 'send'); form.classList.add('is-sent'); form.reset && form.reset(); $('[data-file-label]', form).textContent = 'комнаты или модели'; })
+      .catch(() => { form.classList.add('is-failed'); toast('Не удалось отправить. Позвоните нам: +7 908 638-47-66'); })
+      .finally(() => { btn.disabled = false; label.textContent = was; });
   });
   $$('input', form).forEach(i => i.addEventListener('input', () => i.parentElement.classList.remove('is-error')));
 }
@@ -420,7 +432,7 @@ function renderCatalog() {
   if (catSort === 'fav') list = [...list].sort((a, b) => isFav(b.id) - isFav(a.id));
   if (catSort === 'new') list = [...list].sort((a, b) => !!b.isNew - !!a.isNew);
   $('#catCount').textContent = `${list.length} ${plural(list.length, ['модель', 'модели', 'моделей'])}`;
-  $('#catGrid').innerHTML = list.length ? list.map(cardHTML).join('') : '<div class="catalog__empty">В этой категории пока нет моделей — пришлите фото, повторим.</div>';
+  $('#catGrid').innerHTML = list.length ? list.map(cardHTML).join('') : '<div class="catalog__empty">В этой категории пока нет моделей.</div>';
 }
 $('#catTabs').addEventListener('click', e => { const b = e.target.closest('[data-cf]'); if (!b) return; catFilter = b.dataset.cf; renderCatalog(); });
 $('#catSort').addEventListener('change', e => { catSort = e.target.value; renderCatalog(); });
@@ -553,3 +565,7 @@ window.addEventListener('pointermove', e => { const g = $('#glow'); g.style.left
 })();
 
 })();
+
+/* ---------- MAX: ссылка на профиль фабрики (вставить, когда пришлют) ---------- */
+const MAX_URL = '';
+$$('[data-max]').forEach(a => { a.href = MAX_URL || 'https://max.ru/'; });
