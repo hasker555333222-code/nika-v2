@@ -6,7 +6,11 @@
 
 /* ---------- данные ---------- */
 // Базовый путь к медиа. Для продакшена положите папку media рядом с index.html и замените на 'media'.
-const MEDIA = 'https://selena28lena.github.io/nika/media';
+const REMOTE = 'https://selena28lena.github.io/nika/';
+const ON_DEMO = location.hostname.endsWith('github.io');
+const MEDIA = ON_DEMO ? REMOTE + 'media' : 'media';
+if (ON_DEMO) { const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap'; document.head.appendChild(l); }
+if (ON_DEMO) document.querySelectorAll('[src^="media/"],[poster^="media/"],[href^="media/"]').forEach(el => ['src', 'poster', 'href'].forEach(a => { const v = el.getAttribute(a); if (v && v.startsWith('media/')) el.setAttribute(a, REMOTE + v); }));
 
 const TYPES = { straight:'Прямой', corner:'Угловой', u:'П-образный' };
 const PLURAL = { straight:'Прямые', corner:'Угловые', u:'П-образные' };
