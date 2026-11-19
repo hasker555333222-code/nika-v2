@@ -644,3 +644,15 @@ ul{margin:0;padding:0;list-style:none}
 /* view switch */
 .view{display:none}
 .view.is-active{display:block}
+
+/* honeypot */
+.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+/* мессенджеры рядом с телефонами */
+.footer__socials{display:flex;gap:10px;margin-top:10px}
+.soc{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff;transition:transform .4s var(--ease),filter .3s}
+.soc:hover{transform:translateY(-3px);filter:brightness(1.08)}
+.soc svg{width:20px;height:20px;fill:currentColor}
+.soc b{font-size:11px;font-weight:700;letter-spacing:.02em}
+.soc--wa{background:#25d366}.soc--tg{background:#229ed9}.soc--vk{background:#0077ff}
+.soc--max{background:linear-gradient(135deg,#4a3aff 0%,#8b3dff 55%,#c03dfe 100%)}
+.faq a{color:var(--cognac-deep);border-bottom:1px solid currentColor}
