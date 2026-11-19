@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="https://selena28lena.github.io/nika/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=1118">
+  <link rel="stylesheet" href="styles.css?v=1119">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FurnitureStore","name":"Мебельная фабрика «Ника»","description":"Производство мягкой мебели: прямые, угловые и П-образные диваны по размерам заказчика.","foundingDate":"2013","address":{"@type":"PostalAddress","streetAddress":"Бисертская улица, 132а лит И","addressLocality":"Екатеринбург","postalCode":"620024","addressCountry":"RU"},"geo":{"@type":"GeoCoordinates","latitude":56.758096,"longitude":60.630955},"telephone":["+7 908 638-47-66","+7 908 634-00-22"],"email":"mfnika96@gmail.com","openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"18:00"},"sameAs":["https://vk.com/public212269758","https://2gis.ru/ekaterinburg/firm/70000001007313661"]}
   </script>
@@ -312,7 +312,7 @@
         <div class="cmp__row"><div>Выбор ткани</div><div><i class="cmp__ok">✓</i>Любая, включая «антикоготь»</div><div><i class="cmp__no">–</i>3–5 вариантов</div></div>
         <div class="cmp__row"><div>Срок изготовления</div><div><i class="cmp__ok">✓</i>Около 14 дней</div><div><i class="cmp__no">–</i>3–6 недель под заказ</div></div>
         <div class="cmp__row"><div>Цена</div><div><i class="cmp__ok">✓</i>Фабричная, без наценки</div><div><i class="cmp__no">–</i>+30–50% торговой наценки</div></div>
-        <div class="cmp__row"><div>Повторить диван по фото</div><div><i class="cmp__ok">✓</i>Да</div><div><i class="cmp__no">–</i>Нет</div></div>
+
       </div>
     </div>
   </section>
@@ -335,7 +335,7 @@
           <ul class="works__list rv rv-d3">
             <li>Визуализация в выбранной ткани и с нужной стороной угла</li>
             <li>Проверяем проходы: дверные проёмы, лестницы, лифт</li>
-            <li>Повторим понравившийся диван по фото из интернета</li>
+
           </ul>
           <div class="rv rv-d4"><button class="btn btn--ink" data-open="quote" data-kind="Пока не знаю"><span>Прислать фото комнаты</span><span class="btn__dot"><svg><use href="#i-arrow-ne"/></svg></span></button></div>
         </div>
@@ -386,7 +386,7 @@
           <span class="eyebrow rv">Как заказать</span>
           <h2 class="h2 rv rv-d1" style="margin-top:18px">Расскажите, какой диван вы хотите</h2>
           <div class="order__steps">
-            <div class="order__step rv"><span class="order__n">1</span><div><h3>Модель или ваше фото</h3><p>Выберите модель в каталоге или пришлите фото понравившегося дивана — повторим его в ваших размерах.</p></div></div>
+            <div class="order__step rv"><span class="order__n">1</span><div><h3>Модель</h3><p>Выберите модель в каталоге.</p></div></div>
             <div class="order__step rv rv-d1"><span class="order__n">2</span><div><h3>Ткань и наполнение</h3><p>Подберём обивку под комнату и образ жизни: есть «антикоготь», экокожа и практичные велюры.</p></div></div>
             <div class="order__step rv rv-d2"><span class="order__n">3</span><div><h3>Производство</h3><p>После согласования размеров, ткани и деталей изготовим диван на своей фабрике. Срок назовём до оформления заказа.</p></div></div>
             <div class="order__step rv rv-d3"><span class="order__n">4</span><div><h3>Доставка и сборка</h3><p>Привезём, занесём и соберём. Отправляем в города Свердловской области и другие регионы.</p></div></div>
@@ -394,7 +394,7 @@
         </div>
         <div class="order__card rv rv-d2">
           <div><h3 class="h3">Заявка на расчёт</h3><p class="small muted" style="margin-top:6px">Перезвоним, уточним размеры комнаты и подберём ткань. Расчёт бесплатный.</p></div>
-          <form class="order-form" id="orderForm" novalidate>
+          <form class="order-form" id="orderForm" novalidate><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
             <div>
               <div class="small" style="font-weight:600;margin-bottom:8px">Что хотите заказать</div>
               <div class="order-form__kinds" data-kinds><button type="button" class="chip is-on">Прямой</button><button type="button" class="chip">Угловой</button><button type="button" class="chip">П-образный</button><button type="button" class="chip">Пока не знаю</button></div>
@@ -408,8 +408,9 @@
             <div class="order__msgs">
               <a class="chip" href="https://wa.me/79086384766" target="_blank" rel="noopener">WhatsApp</a>
               <a class="chip" href="https://t.me/+79086340022" target="_blank" rel="noopener">Telegram</a>
+              <a class="chip" data-max href="#" target="_blank" rel="noopener">MAX</a>
               <a class="chip" href="https://vk.com/public212269758" target="_blank" rel="noopener">ВКонтакте</a>
-              <a class="chip" href="tel:+79086384766">Позвонить</a>
+
             </div>
             <div class="order-form__ok"><span class="order-form__check"><svg><use href="#i-check"/></svg></span><h3 class="h3">Заявка отправлена</h3><p class="muted">Перезвоним в рабочее время — Пн–Пт с 9:00 до 18:00. Если удобнее, напишите нам в мессенджер.</p></div>
           </form>
@@ -425,7 +426,7 @@
         <div class="section-head__text">
           <span class="eyebrow rv">Вопросы</span>
           <h2 class="h2 rv rv-d1">Что обычно спрашивают перед заказом</h2>
-          <p class="lead rv rv-d2">Не нашли ответ — напишите в WhatsApp, отвечаем в течение рабочего дня.</p>
+          <p class="lead rv rv-d2">Не нашли ответ — напишите нам в <a href="https://wa.me/79086384766" target="_blank" rel="noopener">WhatsApp</a>, <a data-max href="#" target="_blank" rel="noopener">MAX</a> или <a href="https://t.me/+79086340022" target="_blank" rel="noopener">Telegram</a> — отвечаем в течение рабочего дня.</p>
         </div>
         <div class="acc rv rv-d2" id="faqAcc"></div>
       </div>
@@ -448,10 +449,7 @@
         <label class="sort">Сортировка <select id="catSort"><option value="default">По порядку</option><option value="fav">Сначала избранные</option><option value="new">Сначала новинки</option></select></label>
       </div>
       <div class="catalog__grid" id="catGrid"></div>
-      <div class="catalog__custom">
-        <div><h3 class="h3">Не нашли подходящую модель?</h3><p class="muted">Пришлите фото понравившегося дивана — повторим его в ваших размерах и в вашей ткани.</p></div>
-        <button class="btn btn--cognac" data-open="quote" data-kind="Пока не знаю"><span>Прислать фото</span><span class="btn__dot"><svg><use href="#i-arrow-ne"/></svg></span></button>
-      </div>
+
     </div>
   </div>
 </section>
@@ -476,13 +474,19 @@
         <p class="lead footer__lead">Пришлите размеры комнаты или фото модели, которая нравится. Перезвоним, предложим ткань и назовём срок — расчёт бесплатный.</p>
         <div class="footer__actions">
           <button class="btn btn--cognac" data-open="quote"><span>Рассчитать стоимость</span><span class="btn__dot"><svg><use href="#i-arrow-ne"/></svg></span></button>
-          <a class="btn btn--light" href="https://wa.me/79086384766" target="_blank" rel="noopener"><span>Написать в WhatsApp</span><span class="btn__dot"><svg><use href="#i-arrow-ne"/></svg></span></a>
-          <a class="btn btn--light" href="mailto:mfnika96@gmail.com?subject=%D0%97%D0%B0%D1%8F%D0%B2%D0%BA%D0%B0%20%D1%81%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0"><span>Написать на почту</span><span class="btn__dot"><svg><use href="#i-arrow-ne"/></svg></span></a>
+
         </div>
-        <a class="footer__mail" href="mailto:mfnika96@gmail.com">mfnika96@gmail.com</a>
+
       </div>
       <div class="footer__card">
-        <div class="footer__block"><span class="eyebrow">Позвоните</span><a class="footer__phone" href="tel:+79086384766">+7 908 638-47-66</a><a class="footer__phone" style="font-size:18px" href="tel:+79086340022">+7 908 634-00-22</a><span class="footer__hint">Пн–Пт с 9:00 до 18:00</span></div>
+        <div class="footer__block"><span class="eyebrow">Позвоните</span><a class="footer__phone" href="tel:+79086384766">+7 908 638-47-66</a><a class="footer__phone" style="font-size:18px" href="tel:+79086340022">+7 908 634-00-22</a><span class="footer__hint">Пн–Пт с 9:00 до 18:00</span>
+          <div class="footer__socials">
+            <a class="soc soc--wa" href="https://wa.me/79086384766" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp"><svg><use href="#i-wa"/></svg></a>
+            <a class="soc soc--tg" href="https://t.me/+79086340022" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram"><svg><use href="#i-tg"/></svg></a>
+            <a class="soc soc--max" data-max href="#" target="_blank" rel="noopener" aria-label="MAX" title="MAX"><b>MAX</b></a>
+            <a class="soc soc--vk" href="https://vk.com/public212269758" target="_blank" rel="noopener" aria-label="ВКонтакте" title="ВКонтакте"><svg><use href="#i-vk"/></svg></a>
+          </div>
+          <a class="footer__mail" href="mailto:mfnika96@gmail.com">mfnika96@gmail.com</a></div>
         <div class="footer__block"><span class="eyebrow">Приезжайте на фабрику</span><div class="footer__addr"><svg><use href="#i-pin"/></svg><div>Екатеринбург, Бисертская ул., 132а лит И, 2 этаж<br><span class="footer__hint">Остановка «Свердлесмаш» — 400 м</span></div></div><a class="link-arrow" style="color:#c38b5c" href="https://2gis.ru/ekaterinburg/directions/points/%7C60.630955%2C56.758096%3B70000001007313661" target="_blank" rel="noopener">Маршрут в 2ГИС <svg><use href="#i-arrow-ne"/></svg></a></div>
       </div>
     </div>
@@ -509,7 +513,7 @@
   <div class="modal__backdrop" data-close></div>
   <div class="modal__panel" role="dialog" aria-modal="true" aria-label="Заявка на расчёт">
     <div class="modal__head"><div><h3 class="h3">Рассчитать стоимость</h3><p class="small muted" style="margin-top:6px">Перезвоним в рабочее время и назовём точную цену и срок.</p></div><button class="modal__close" data-close aria-label="Закрыть"><svg><use href="#i-close"/></svg></button></div>
-    <form class="order-form" id="quoteForm" novalidate>
+    <form class="order-form" id="quoteForm" novalidate><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
       <div class="order-form__kinds" data-kinds><button type="button" class="chip is-on">Прямой</button><button type="button" class="chip">Угловой</button><button type="button" class="chip">П-образный</button><button type="button" class="chip">Пока не знаю</button></div>
       <div class="field"><label for="qfName">Имя</label><input id="qfName" name="name" placeholder="Имя"><span class="field__err">Напишите имя</span></div>
       <div class="field"><label for="qfPhone">Телефон</label><input id="qfPhone" name="phone" type="tel" inputmode="tel" placeholder="+7 ___ ___-__-__"><span class="field__err">Проверьте номер</span></div>
@@ -554,6 +558,6 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="app.js?v=1118"></script>
+<script src="app.js?v=1119"></script>
 </body>
 </html>
