@@ -568,4 +568,4 @@ window.addEventListener('pointermove', e => { const g = $('#glow'); g.style.left
 
 /* ---------- MAX: ссылка на профиль фабрики (вставить, когда пришлют) ---------- */
 const MAX_URL = '';
-$$('[data-max]').forEach(a => { a.href = MAX_URL || 'https://max.ru/'; });
+document.querySelectorAll('[data-max]').forEach(a => { a.href = MAX_URL || 'https://max.ru/'; });
