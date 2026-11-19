@@ -461,7 +461,7 @@ ul{margin:0;padding:0;list-style:none}
 .footer__mapbar{position:absolute;left:16px;bottom:16px;right:16px;max-width:560px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:14px 14px 14px 20px;border-radius:20px;background:rgba(252,248,242,.96);color:#2b1f17;box-shadow:0 24px 50px -24px rgba(0,0,0,.5)}
 .footer__mapbar div{display:flex;flex-direction:column;gap:2px;font-size:14px}
 .footer__mapbar span{color:#8e7c6d;font-size:13px}
-.footer__mail{display:inline-block;margin-top:14px;color:#c38b5c;font-size:15px;border-bottom:1px solid rgba(195,139,92,.4)}
+.footer__mail{display:inline-block;align-self:flex-start;margin-top:14px;color:#c38b5c;font-size:15px;border-bottom:1px solid rgba(195,139,92,.4)}
 .footer__mail:hover{border-color:#c38b5c}
 .footer__main{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:28px;padding-block:48px;border-bottom:1px solid rgba(255,255,255,.1)}
 .footer__brand{display:flex;flex-direction:column;gap:14px;font-size:14px;color:rgba(244,236,227,.7);max-width:34ch}
