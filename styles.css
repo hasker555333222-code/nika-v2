@@ -669,3 +669,26 @@ ul{margin:0;padding:0;list-style:none}
 .kpdf__btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
 .cprev__more{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
 @media (max-width:760px){.kpdf{grid-template-columns:1fr}.kpdf__cover{height:300px;max-width:360px}}
+
+/* выбор формата каталога */
+.kat{width:min(520px,100%)}
+.kat .h3{margin:6px 0 4px}
+.kat__opts{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.kat__opt{position:relative;display:flex;align-items:center;gap:16px;width:100%;padding:16px 18px;border-radius:18px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);text-align:left;color:var(--ink);transition:box-shadow .3s,transform .4s var(--ease)}
+.kat__opt:hover{transform:translateY(-2px);box-shadow:inset 0 0 0 1.5px var(--cognac),0 16px 30px -20px rgba(43,31,23,.4)}
+.kat__opt i{flex:none;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--cognac-100,#f3e6da);color:var(--cognac-deep,#8a5a38)}
+.kat__opt i svg{width:24px;height:24px}
+.kat__opt span{display:flex;flex-direction:column;gap:2px}
+.kat__opt b{font-size:16px;font-weight:600}
+.kat__opt small{font-size:13px;color:var(--ink-soft,#7a6a5d)}
+.kat__opt em{display:none;margin-left:auto;font-style:normal;font-size:11px;font-weight:600;letter-spacing:.04em;padding:4px 8px;border-radius:999px;background:var(--cognac,#a0683f);color:#fff;white-space:nowrap}
+.kat__opt.is-rec{box-shadow:inset 0 0 0 1.5px var(--cognac,#a0683f)}
+.kat__opt.is-rec em{display:inline-block}
+@media (max-width:480px){.kat__opt{padding:14px}.kat__opt em{position:absolute;top:-8px;right:12px}}
+.hero__kat{display:inline-flex;align-items:center;gap:12px;margin-top:-6px;padding:8px 18px 8px 8px;border-radius:999px;background:rgba(255,250,244,.12);box-shadow:inset 0 0 0 1px rgba(255,250,244,.28);color:#fbf5ec;backdrop-filter:blur(8px);transition:background .3s,transform .4s var(--ease);align-self:flex-start}
+.hero__kat:hover{background:rgba(255,250,244,.22);transform:translateY(-2px)}
+.hero__kat i{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#c38b5c;color:#fff}
+.hero__kat i svg{width:18px;height:18px}
+.hero__kat span{font-size:15px;font-weight:500}
+.hero__kat small{font-size:12.5px;opacity:.72}
+@media (max-width:640px){.hero__kat{width:100%;margin-top:10px;color:var(--ink);background:rgba(255,255,255,.5);box-shadow:inset 0 0 0 1px var(--line)}.hero__kat small{display:none}}
