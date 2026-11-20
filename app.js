@@ -6,51 +6,75 @@
 
 /* ---------- данные ---------- */
 // Базовый путь к медиа. Для продакшена положите папку media рядом с index.html и замените на 'media'.
-const REMOTE = 'https://selena28lena.github.io/nika/';
+const REMOTE = 'https://www.mfnika.ru/';
 const ON_DEMO = location.hostname.endsWith('github.io');
 const MEDIA = ON_DEMO ? REMOTE + 'media' : 'media';
 if (ON_DEMO) { const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap'; document.head.appendChild(l); }
 if (ON_DEMO) document.querySelectorAll('[src^="media/"],[poster^="media/"],[href^="media/"]').forEach(el => ['src', 'poster', 'href'].forEach(a => { const v = el.getAttribute(a); if (v && v.startsWith('media/')) el.setAttribute(a, REMOTE + v); }));
 
-const TYPES = { straight:'Прямой', corner:'Угловой', u:'П-образный' };
-const PLURAL = { straight:'Прямые', corner:'Угловые', u:'П-образные' };
+const TYPES = { straight:'Прямой', corner:'Угловой', u:'П-образный', other:'Кресло, пуф' };
+const PLURAL = { straight:'Прямые', corner:'Угловые', u:'П-образные', other:'Кресла и пуфы' };
 
 const PRODUCTS = [
   { id:'nika-grand', name:'Модель 01', type:'u', tag:'Визуализация', isNew:true, dir:'nika-grand-concept', ext:'jpg', photos:[3,13,1,2,9,10,11,12,4,5,6,7,8],
     desc:'П-образный диван с двумя оттоманками и стёганым сиденьем. Собирается модулями, поэтому длину каждой стороны считаем под вашу комнату. В разложенном виде — спальное место размером с двуспальную кровать.',
     specs:[['Размеры','По вашим размерам'],['Форма','П-образная, модульная'],['Хранение','Ящики в оттоманках'],['Ткань','На выбор, есть «антикоготь»']], recolor:true },
-  { id:'model-02', name:'Модель 02', type:'corner', isNew:true },
-  { id:'model-03', name:'Модель 03', type:'straight' },
-  { id:'model-04', name:'Модель 04', type:'u', isNew:true },
-  { id:'model-05', name:'Модель 05', type:'straight' },
-  { id:'model-06', name:'Модель 06', type:'corner' },
-  { id:'model-07', name:'Модель 07', type:'straight' },
-  { id:'model-08', name:'Модель 08', type:'corner' },
-  { id:'model-09', name:'Модель 09', type:'straight' },
-  { id:'model-10', name:'Модель 10', type:'corner' },
-  { id:'model-11', name:'Модель 11', type:'straight' },
-  { id:'model-12', name:'Модель 12', type:'corner' },
-  { id:'model-13', name:'Модель 13', type:'straight' },
-  { id:'model-14', name:'Модель 14', type:'corner' },
-  { id:'model-15', name:'Модель 15', type:'straight' },
-  { id:'model-16', name:'Модель 16', type:'straight' },
-  { id:'model-17', name:'Модель 17', type:'straight' },
-  { id:'model-18', name:'Модель 18', type:'straight' },
-  { id:'model-19', name:'Модель 19', type:'straight' },
-  { id:'model-20', name:'Модель 20', type:'straight' },
-  { id:'model-21', name:'Модель 21', type:'straight' },
+  { id:'akkordeon', name:'Аккордеон', type:'straight', mech:'Аккордеон' },
+  { id:'boston-bd', name:'Бостон БД', type:'straight', mech:'Клик-кляк', fill:'пружинный блок Bonnell, блок TFK' },
+  { id:'boston-ugol', name:'Бостон угол', type:'corner', mech:'Клик-кляк', fill:'пружинный блок Bonnell, блок TFK' },
+  { id:'brayton', name:'Брайтон', type:'straight', mech:'Клик-кляк', fill:'пружинный блок Bonnell, блок TFK' },
+  { id:'grand-bd', name:'Гранд БД', type:'straight', fill:'пружина «змейка», ППУ' },
+  { id:'grand-ugol', name:'Гранд угол', type:'corner', fill:'пружина «змейка», ППУ' },
+  { id:'kvadro-s-podlokotnikami', name:'Квадро с подлокотниками', type:'straight', mech:'Еврокнижка', fill:'блок TFK' },
+  { id:'kvadro', name:'Квадро', type:'straight', mech:'Еврокнижка', fill:'блок TFK' },
+  { id:'klyak', name:'Кляк', type:'straight', mech:'Клик-кляк', fill:'пружинный блок Bonnell, блок TFK' },
+  { id:'layt', name:'Лайт', type:'straight', mech:'Еврокнижка', fill:'ППУ' },
+  { id:'loft-bd', name:'Лофт БД', type:'straight', mech:'Тик-так', fill:'блок TFK' },
+  { id:'loft-ugol', name:'Лофт угол', type:'corner', mech:'Тик-так', fill:'блок TFK' },
+  { id:'margo', name:'Марго', type:'straight', fill:'ППУ' },
+  { id:'milan-bd', name:'Милан БД', type:'straight', mech:'Аккордеон', fill:'пружинный блок Bonnell, блок TFK, ППУ' },
+  { id:'milan-bd-s-nakladkami', name:'Милан БД с накладками', type:'straight', mech:'Аккордеон', fill:'пружинный блок Bonnell, блок TFK, ППУ' },
+  { id:'milan-ugol', name:'Милан угол', type:'corner', mech:'Аккордеон', fill:'пружинный блок Bonnell, блок TFK, ППУ' },
+  { id:'nika-1', name:'Ника 1', type:'straight', mech:'Тик-так', fill:'пружинный блок Bonnell, блок TFK' },
+  { id:'nika-2', name:'Ника 2', type:'straight', mech:'Тик-так', fill:'пружинный блок Bonnell' },
+  { id:'nika-3', name:'Ника 3', type:'straight', mech:'Еврокнижка', fill:'пружинный блок Bonnell' },
+  { id:'nika-4-ugol', name:'Ника 4 угол', type:'corner', fill:'ППУ' },
+  { id:'nika-5', name:'Ника 5', type:'straight', mech:'Тик-так', fill:'блок TFK' },
+  { id:'nika-6', name:'Ника 6', type:'corner', mech:'Тик-так', fill:'пружинный блок Bonnell' },
+  { id:'puf-kubik', name:'Пуф Кубик', type:'other', kindName:'Пуф', fill:'ППУ' },
+  { id:'tik-tak-bd', name:'Тик-так БД', type:'straight', mech:'Тик-так', fill:'пружинный блок Bonnell, ППУ' },
+  { id:'tik-tak-kanape', name:'Тик-так канапе', type:'straight', fill:'ППУ' },
+  { id:'tik-tak-ugol', name:'Тик-так угол', type:'corner', mech:'Тик-так', fill:'пружинный блок Bonnell, ППУ' },
+  { id:'transformer-p-obraznyy', name:'Трансформер П-образный', type:'u', mech:'Тик-так', fill:'пружинный блок Bonnell, блок TFK' },
+  { id:'transformer-kreslo', name:'Трансформер кресло', type:'other', kindName:'Кресло-кровать' },
+  { id:'transformer', name:'Трансформер', type:'corner', mech:'Тик-так', fill:'пружинный блок Bonnell, блок TFK' },
+  { id:'flagman-bd', name:'Флагман БД', type:'straight', mech:'Еврокнижка', fill:'пружинный блок Bonnell' },
+  { id:'flagman-ugol', name:'Флагман угол', type:'corner', mech:'Еврокнижка', fill:'ППУ' },
+  { id:'chester-bd', name:'Честер БД', type:'straight', mech:'Клик-кляк', fill:'пружинный блок Bonnell, блок TFK' },
+  { id:'chester-bd-s-podlokotnikami', name:'Честер БД с подлокотниками', type:'straight', mech:'Клик-кляк', fill:'пружинный блок Bonnell, блок TFK' },
+  { id:'chester-bd-s-podlokotnikami-i-nakladkami', name:'Честер БД с подлокотниками и накладками', type:'straight', mech:'Клик-кляк', fill:'пружинный блок Bonnell, блок TFK' },
+  { id:'chester-bd-s-podlokotnikami-i-pufikom', name:'Честер БД с подлокотниками и пуфиком', type:'straight', mech:'Клик-кляк', fill:'пружинный блок Bonnell, блок TFK' },
+  { id:'chester-ugol-s-podlokotnikami', name:'Честер угол с подлокотниками', type:'corner', photos:[1, 2], mech:'Клик-кляк', fill:'пружинный блок Bonnell, блок TFK' },
+  { id:'chester-ugol', name:'Честер угол', type:'corner', mech:'Клик-кляк', fill:'пружинный блок Bonnell, блок TFK' },
+  { id:'chester-s-2-ottomankami', name:'Честер с 2 оттоманками', type:'u', mech:'Клик-кляк', fill:'пружинный блок Bonnell, блок TFK' },
 ];
 PRODUCTS.forEach(p => {
   p.dir = p.dir || p.id; p.ext = p.ext || 'webp'; p.photos = p.photos || [1];
-  p.typeName = TYPES[p.type];
+  p.typeName = p.kindName || TYPES[p.type];
+  p.what = p.type === 'other' ? p.typeName.toLowerCase() : p.typeName.toLowerCase() + ' диван';
   p.img = (n, size) => `${MEDIA}/products/${p.dir}/${n}${size ? '-' + size : ''}.${p.ext}`;
   p.cover = p.img(p.photos[0], 'm');
+  if (!p.desc && p.type === 'other') p.desc = `${p.name} — делаем на нашей фабрике в Екатеринбурге. Ткань и цвет подберём под ваш диван или интерьер, есть «антикоготь».`;
   if (!p.desc) p.desc = `${p.typeName} диван, который мы шьём по вашим размерам: ширину, глубину сиденья и высоту подлокотников подбираем под комнату. Механизм, наполнение и ткань — на выбор, в том числе «антикоготь».`;
+  if (!p.specs && p.type === 'other') p.specs = [['Размеры','По запросу'],['Наполнение', p.fill ? p.fill[0].toUpperCase() + p.fill.slice(1) : 'ППУ'],['Ткань','На выбор, есть «антикоготь»']];
   if (!p.specs) p.specs = p.type === 'corner'
     ? [['Размеры','По вашим размерам'],['Угол','Левый или правый'],['Механизм','На выбор'],['Ткань','На выбор, есть «антикоготь»']]
     : p.type === 'u'
     ? [['Размеры','По вашей комнате'],['Форма','П-образная, модульная'],['Хранение','Ящики в оттоманках'],['Ткань','На выбор, есть «антикоготь»']]
     : [['Размеры','По вашим размерам'],['Механизм','На выбор'],['Спальное место','Ровное, без стыка'],['Ткань','На выбор, есть «антикоготь»']];
+  if (p.mech || p.fill) p.specs = p.specs.map(([k, v]) => k === 'Механизм' && p.mech ? [k, p.mech] : [k, v]);
+  if (p.fill && p.type !== 'other') p.specs.splice(p.specs.length - 1, 0, ['Наполнение', p.fill[0].toUpperCase() + p.fill.slice(1)]);
+  if (p.mech && !p.specs.some(([k]) => k === 'Механизм')) p.specs.splice(1, 0, ['Механизм', p.mech]);
 });
 const byId = id => PRODUCTS.find(p => p.id === id);
 
@@ -132,7 +156,7 @@ renderFavCount();
 function cardHTML(p, i = 0) {
   return `<article class="pcard" style="animation-delay:${Math.min(i, 12) * 40}ms">
     <div class="pcard__media">
-      <img class="pcard__img" src="${p.cover}" alt="${p.name} — ${p.typeName.toLowerCase()} диван" loading="lazy" decoding="async">
+      <img class="pcard__img" src="${p.cover}" alt="${p.name} — ${p.what}" loading="lazy" decoding="async">
       ${p.tag ? `<span class="pcard__tag">${p.tag}</span>` : p.isNew ? '<span class="pcard__tag">Новинка</span>' : ''}
       <span class="pcard__type">${p.typeName}</span>
       <button class="pcard__fav ${isFav(p.id) ? 'is-on' : ''}" data-fav="${p.id}" aria-label="В избранное"><svg><use href="#i-heart"/></svg></button>
@@ -464,7 +488,7 @@ function renderProduct(id) {
         </div>
       </div>
       <div class="pinfo">
-        <div class="pinfo__title"><span class="eyebrow">${p.typeName} диван</span><h1 class="h2">${p.name}</h1></div>
+        <div class="pinfo__title"><span class="eyebrow">${p.type === 'other' ? p.typeName : p.typeName + ' диван'}</span><h1 class="h2">${p.name}</h1></div>
         <div class="pinfo__price"><b>Цена по запросу</b><span>Точную цену назовём после выбора размера и ткани</span></div>
         <p class="pinfo__desc">${p.desc}</p>
         <div class="pinfo__opts">
@@ -495,7 +519,7 @@ function renderProduct(id) {
   bindSwatches($('#gSwatches'), p.recolor ? layer : null, p.recolor ? $('#gLabel') : null, f => { fab = f; if (!p.recolor) $('#gLabel').textContent = `${f.name} · ${f.kind} — покажем образец в шоуруме`; });
   $('#pQuote').addEventListener('click', () => openQuote({ kind: p.typeName, msg: `Интересует ${p.name} (${p.typeName.toLowerCase()})${hasCorner ? `, угол ${side === 'left' ? 'слева' : 'справа'}` : ''}, ткань: ${fab.name} (${fab.kind})` }));
   $('#pShare').addEventListener('click', async () => { try { await navigator.clipboard.writeText(location.href); toast('Ссылка скопирована'); } catch (e) { toast(location.href); } });
-  document.title = `${p.name} — ${p.typeName.toLowerCase()} диван по вашим размерам · Ника`;
+  document.title = `${p.name} — ${p.what} · фабрика «Ника»`;
 }
 
 /* ---------- роутер ---------- */
