@@ -437,6 +437,15 @@ function openLightbox(list, i = 0, alt = '') { lbList = list; $('#lbImg').alt = 
 $('#lbPrev').addEventListener('click', () => lbShow(lbI - 1));
 $('#lbNext').addEventListener('click', () => lbShow(lbI + 1));
 document.addEventListener('keydown', e => { if (!$('#modal-lb').classList.contains('is-open') || lbList.length < 2) return; if (e.key === 'ArrowLeft') lbShow(lbI - 1); if (e.key === 'ArrowRight') lbShow(lbI + 1); });
+/* ---------- каталог: выбор формата ---------- */
+(() => {
+  const isPhone = matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) < 820;
+  $$('.kat__opt[data-kat]').forEach(o => o.classList.toggle('is-rec', o.dataset.kat === (isPhone ? 'phone' : 'pc')));
+  const list = $('.kat__opts'); const rec = $('.kat__opt.is-rec'); if (list && rec) list.prepend(rec);
+  document.addEventListener('click', e => { if (e.target.closest('[data-open-kat]')) { e.preventDefault(); openModal('kat'); } });
+  $$('.kat__opt[data-kat]').forEach(o => o.addEventListener('click', () => setTimeout(() => { closeModals(); toast('Каталог скачивается'); }, 300)));
+  const view = $('[data-kat-view]'); if (view) view.addEventListener('click', () => { closeModals(); openLightbox([1, 2, 3, 4, 5, 6, 7].map(n => `${ON_DEMO ? REMOTE : ''}media/katalog/page-${n}.webp`), 0, 'Каталог фабрики «Ника»'); });
+})();
 function openQuickView(id) {
   const p = byId(id); if (!p) return;
   $('#qvRoot').innerHTML = `<div class="qv__media"><img src="${p.img(p.photos[0])}" alt="${p.name}"></div>
