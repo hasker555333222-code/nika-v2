@@ -13,7 +13,7 @@
   <meta property="og:description" content="Диваны по вашим размерам с собственной фабрики. Онлайн-расчёт стоимости, примерка ткани на фото, доставка и сборка.">
   <link href="fonts/manrope.css" rel="stylesheet">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=1122">
+  <link rel="stylesheet" href="styles.css?v=1124">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FurnitureStore","name":"Мебельная фабрика «Ника»","description":"Производство мягкой мебели: прямые, угловые и П-образные диваны по размерам заказчика.","foundingDate":"2013","address":{"@type":"PostalAddress","streetAddress":"Бисертская улица, 132а лит И","addressLocality":"Екатеринбург","postalCode":"620024","addressCountry":"RU"},"geo":{"@type":"GeoCoordinates","latitude":56.758096,"longitude":60.630955},"telephone":["+7 908 638-47-66","+7 908 634-00-22"],"email":"mfnika96@gmail.com","openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"18:00"},"sameAs":["https://vk.com/public212269758","https://2gis.ru/ekaterinburg/firm/70000001007313661"]}
   </script>
@@ -123,6 +123,7 @@
           <a class="btn btn--cognac" href="#/catalog"><span>Смотреть каталог</span><span class="btn__dot"><svg><use href="#i-arrow"/></svg></span></a>
           <a class="btn btn--light" href="#/#calc" data-scroll="calc"><span>Рассчитать стоимость</span><span class="btn__dot"><svg><use href="#i-arrow-ne"/></svg></span></a>
         </div>
+        <button class="hero__kat" type="button" data-open-kat><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></i><span>Скачать каталог</span><small>PDF · для компьютера или телефона</small></button>
       </div>
       <div class="hero__card">
           <a class="hero__card-link" href="#/product/nika-grand">
@@ -542,6 +543,31 @@
   <div class="modal__panel modal__panel--wide" role="dialog" aria-modal="true"><div class="qv" id="qvRoot"></div></div>
 </div>
 
+<!-- КАТАЛОГ: выбор формата -->
+<div class="modal" id="modal-kat" aria-hidden="true">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__panel kat">
+    <button class="modal__close" data-close aria-label="Закрыть"><svg><use href="#i-close"/></svg></button>
+    <span class="eyebrow">Каталог фабрики «Ника»</span>
+    <h3 class="h3">Как вам удобнее?</h3>
+    <p class="muted">7 страниц: все модели, кресла, пуфы и механизмы.</p>
+    <div class="kat__opts">
+      <a class="kat__opt" data-kat="pc" href="media/katalog-nika.pdf" download="Каталог фабрики Ника.pdf">
+        <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></i>
+        <span><b>Для компьютера</b><small>PDF в высоком качестве · 1 МБ</small></span><em>Ваше устройство</em>
+      </a>
+      <a class="kat__opt" data-kat="phone" href="media/katalog-nika-mobile.pdf" download="Каталог Ника (для телефона).pdf">
+        <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></i>
+        <span><b>Для телефона</b><small>Облегчённый PDF · 0,5 МБ, быстро скачается</small></span><em>Ваше устройство</em>
+      </a>
+      <button class="kat__opt" type="button" data-kat-view>
+        <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></i>
+        <span><b>Листать на сайте</b><small>Без скачивания, прямо сейчас</small></span>
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- LIGHTBOX -->
 <div class="modal lightbox" id="modal-lb" aria-hidden="true">
   <div class="modal__backdrop" data-close></div>
@@ -569,6 +595,6 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="app.js?v=1122"></script>
+<script src="app.js?v=1124"></script>
 </body>
 </html>
