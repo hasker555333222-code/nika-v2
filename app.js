@@ -108,8 +108,8 @@ const FAQ = [
 
 const CALC = {
   kinds: [
-    { id:'straight', name:'Прямой', base:36000, model:'model-03', svg:'<rect x="4" y="9" width="44" height="14" rx="3"/><path d="M4 23v4M48 23v4"/>' },
-    { id:'corner', name:'Угловой', base:52000, model:'model-02', svg:'<path d="M4 9h44v8H18v10H4z"/>' },
+    { id:'straight', name:'Прямой', base:36000, model:'chester-bd-s-podlokotnikami', svg:'<rect x="4" y="9" width="44" height="14" rx="3"/><path d="M4 23v4M48 23v4"/>' },
+    { id:'corner', name:'Угловой', base:52000, model:'chester-ugol', svg:'<path d="M4 9h44v8H18v10H4z"/>' },
     { id:'u', name:'П-образный', base:84000, model:'nika-grand', svg:'<path d="M4 4h12v18h20V4h12v24H4z"/>' },
   ],
   mech: [ ['none','Без механизма',0], ['book','Книжка',0], ['euro','Еврокнижка',4500], ['acc','Аккордеон',7500], ['puma','Пума',9500] ],
@@ -127,7 +127,7 @@ const lock = on => document.documentElement.classList.toggle('is-locked', on);
 
 /* ---------- избранное ---------- */
 const FAV_KEY = 'nika_fav';
-let favs = []; try { favs = JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch (e) {}
+let favs = []; try { favs = JSON.parse(localStorage.getItem(FAV_KEY) || '[]').filter(id => byId(id)); } catch (e) {}
 const isFav = id => favs.includes(id);
 function toggleFav(id) {
   favs = isFav(id) ? favs.filter(x => x !== id) : [...favs, id];
