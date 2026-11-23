@@ -16,7 +16,7 @@ const TYPES = { straight:'Прямой', corner:'Угловой', u:'П-обра
 const PLURAL = { straight:'Прямые', corner:'Угловые', u:'П-образные', other:'Кресла и пуфы' };
 
 const PRODUCTS = [
-  { id:'nika-grand', name:'Модель 01', type:'u', tag:'Визуализация', isNew:true, dir:'nika-grand-concept', ext:'jpg', photos:[3,13,1,2,9,10,11,12,4,5,6,7,8],
+  { id:'nika-grand', name:'Честер с двумя оттоманками', type:'u', tag:'Визуализация', isNew:true, dir:'nika-grand-concept', ext:'jpg', photos:[3,13,1,2,9,10,11,12,4,5,6,7,8],
     desc:'П-образный диван с двумя оттоманками и стёганым сиденьем. Собирается модулями, поэтому длину каждой стороны считаем под вашу комнату. В разложенном виде — спальное место размером с двуспальную кровать.',
     specs:[['Размеры','По вашим размерам'],['Форма','П-образная, модульная'],['Хранение','Ящики в оттоманках'],['Ткань','На выбор, есть «антикоготь»']], recolor:true },
   { id:'akkordeon', name:'Аккордеон', type:'straight', mech:'Аккордеон' },
@@ -31,12 +31,10 @@ const PRODUCTS = [
   { id:'layt', name:'Лайт', type:'straight', mech:'Еврокнижка', fill:'ППУ' },
   { id:'loft-bd', name:'Лофт БД', type:'straight', mech:'Тик-так', fill:'блок TFK' },
   { id:'loft-ugol', name:'Лофт угол', type:'corner', mech:'Тик-так', fill:'блок TFK' },
-  { id:'margo', name:'Марго', type:'straight', fill:'ППУ' },
   { id:'milan-bd', name:'Милан БД', type:'straight', mech:'Аккордеон', fill:'пружинный блок Bonnell, блок TFK, ППУ' },
   { id:'milan-bd-s-nakladkami', name:'Милан БД с накладками', type:'straight', mech:'Аккордеон', fill:'пружинный блок Bonnell, блок TFK, ППУ' },
   { id:'milan-ugol', name:'Милан угол', type:'corner', mech:'Аккордеон', fill:'пружинный блок Bonnell, блок TFK, ППУ' },
   { id:'nika-1', name:'Ника 1', type:'straight', mech:'Тик-так', fill:'пружинный блок Bonnell, блок TFK' },
-  { id:'nika-2', name:'Ника 2', type:'straight', mech:'Тик-так', fill:'пружинный блок Bonnell' },
   { id:'nika-3', name:'Ника 3', type:'straight', mech:'Еврокнижка', fill:'пружинный блок Bonnell' },
   { id:'nika-4-ugol', name:'Ника 4 угол', type:'corner', fill:'ППУ' },
   { id:'nika-5', name:'Ника 5', type:'straight', mech:'Тик-так', fill:'блок TFK' },
@@ -56,7 +54,6 @@ const PRODUCTS = [
   { id:'chester-bd-s-podlokotnikami-i-pufikom', name:'Честер БД с подлокотниками и пуфиком', type:'straight', mech:'Клик-кляк', fill:'пружинный блок Bonnell, блок TFK' },
   { id:'chester-ugol-s-podlokotnikami', name:'Честер угол с подлокотниками', type:'corner', photos:[1, 2], mech:'Клик-кляк', fill:'пружинный блок Bonnell, блок TFK' },
   { id:'chester-ugol', name:'Честер угол', type:'corner', mech:'Клик-кляк', fill:'пружинный блок Bonnell, блок TFK' },
-  { id:'chester-s-2-ottomankami', name:'Честер с 2 оттоманками', type:'u', mech:'Клик-кляк', fill:'пружинный блок Bonnell, блок TFK' },
 ];
 PRODUCTS.forEach(p => {
   p.dir = p.dir || p.id; p.ext = p.ext || 'webp'; p.photos = p.photos || [1];
@@ -436,6 +433,7 @@ function lbShow(i) { lbI = (i + lbList.length) % lbList.length; $('#lbImg').src 
 function openLightbox(list, i = 0, alt = '') { lbList = list; $('#lbImg').alt = alt; lbShow(i); openModal('lb'); }
 $('#lbPrev').addEventListener('click', () => lbShow(lbI - 1));
 $('#lbNext').addEventListener('click', () => lbShow(lbI + 1));
+{ let sx = 0, sy = 0; const pn = $('#modal-lb .modal__panel'); pn.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true }); pn.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) lbShow(lbI + (dx < 0 ? 1 : -1)); else if (dy > 90 && Math.abs(dy) > Math.abs(dx)) closeModals(); }, { passive: true }); }
 document.addEventListener('keydown', e => { if (!$('#modal-lb').classList.contains('is-open') || lbList.length < 2) return; if (e.key === 'ArrowLeft') lbShow(lbI - 1); if (e.key === 'ArrowRight') lbShow(lbI + 1); });
 /* ---------- каталог: выбор формата ---------- */
 (() => {
