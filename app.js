@@ -16,6 +16,8 @@ const TYPES = { straight:'Прямой', corner:'Угловой', u:'П-обра
 const PLURAL = { straight:'Прямые', corner:'Угловые', u:'П-образные', other:'Кресла и пуфы' };
 
 const PRODUCTS = [
+  { id:'kaliforniya', name:'Калифорния', type:'corner', tag:'Модель сезона', isNew:true, photos:[1, 2, 3] },
+  { id:'kaliforniya-bd', name:'Калифорния БД', type:'straight', isNew:true },
   { id:'nika-grand', name:'Честер с двумя оттоманками', type:'u', tag:'Визуализация', isNew:true, dir:'nika-grand-concept', ext:'jpg', photos:[3,13,1,2,9,10,11,12,4,5,6,7,8],
     desc:'П-образный диван с двумя оттоманками и стёганым сиденьем. Собирается модулями, поэтому длину каждой стороны считаем под вашу комнату. В разложенном виде — спальное место размером с двуспальную кровать.',
     specs:[['Размеры','По вашим размерам'],['Форма','П-образная, модульная'],['Хранение','Ящики в оттоманках'],['Ткань','На выбор, есть «антикоготь»']], recolor:true },
@@ -234,8 +236,18 @@ function bindSwatches(root, layer, label, onChange) {
     onChange && onChange(f);
   });
 }
-$('#featSwatches').innerHTML = swatchesHTML();
-bindSwatches($('#featSwatches'), $('#featLayer'), $('#featLabel'));
+/* ---------- модель сезона: галерея ---------- */
+(() => {
+  const p = byId('kaliforniya'), img = $('#featImg'), th = $('#featThumbs'); if (!p || !img || !th) return;
+  const list = p.photos.map(n => p.img(n)); let i = 0, timer;
+  th.innerHTML = p.photos.map((n, k) => `<button type="button" class="${k ? '' : 'is-on'}" data-i="${k}" aria-label="Фото ${k + 1}"><img src="${p.img(n, 's')}" alt=""></button>`).join('');
+  const show = k => { i = (k + list.length) % list.length; img.classList.add('is-fading'); setTimeout(() => { img.src = list[i]; img.onload = () => img.classList.remove('is-fading'); }, 250); $$('button', th).forEach((b, j) => b.classList.toggle('is-on', j === i)); };
+  const play = () => { clearInterval(timer); timer = setInterval(() => show(i + 1), 5000); };
+  th.addEventListener('click', e => { const b = e.target.closest('[data-i]'); if (b) { show(+b.dataset.i); play(); } });
+  $('#featZoom').addEventListener('click', () => openLightbox(list, i, p.name));
+  img.addEventListener('click', () => openLightbox(list, i, p.name));
+  play();
+})();
 
 /* ---------- калькулятор ---------- */
 const calc = { kind:'corner', len:240, dep:95, mech:'euro', fab:'velour', opts:new Set(['box']) };
